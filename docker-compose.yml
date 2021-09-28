@@ -1,14 +1,14 @@
 version: "1.0"
 services:
   alert:
-    build: var_change
+    build: alert
     ports:
       - "8081:8081"
   steal_cookie:
-    build: var_change_to
+    build: steal_cookie
     ports:
       - "8082:8082"
   steal_cookie_image:
-    build: "stack control"
+    build: steal_cookie_image
     ports:
       - "8083:8083"
