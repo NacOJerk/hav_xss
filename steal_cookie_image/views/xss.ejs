@@ -1,0 +1,10 @@
+<html>
+    <%- include("header.ejs") %>
+    <body class="text-center">
+        <div class="container">
+            <img class="rounded" src="logo.png" alt="XSS Logo" width="30%" height="30%" style="margin-bottom: 10%;">
+            <h3>Look at the source code and the src of the image below, read online about onerror</h3>
+            <h1 style="margin-bottom: 20%;"><img src="<%- data%>"></h1>
+        </div>
+    </body>
+</html>

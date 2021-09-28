@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("header.ejs") %>
+
+  <body class="text-center">
+    <div class="container">
+      <img class="rounded" src="logo.png" alt="XSS Logo" width="30%" height="30%">
+      <form class="form-signin" id="payload">
+        <h1 class="h3 mb-3 font-weight-normal">Please Enter Payload</h1>
+        <p>Try using this link to start:</br><a id="linkPayload">hey</a></p>
+        <p>Alert the target's computer cookies</p>
+        <label for="urlPayload" class="sr-only">Password</label>
+        <input type="url" id="url" class="form-control" placeholder="" required autofocus>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit Payload</button>
+        <p class="mt-5 mb-3 text-muted">&copy; XSS Alert</p>
+      </form>
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      $("#url").attr('placeholder', window.location.href + "xss?data=hey");
+      $("#linkPayload").attr('href', window.location.href + "xss?data=hey");
+      $("#linkPayload").text(window.location.href + "xss?data=hey");
+
+      $("#payload").submit((e) => {
+        let form = $("#payload");
+
+        e.preventDefault();
+        $.ajax({
+          url: "/submit",
+          type: "get",
+          data: {
+            url: form.find("#url").val()
+          }, success: function (data) {
+            alert(data);
+          },
+
+        })
+      })
+    });
+  </script>
+
+</html>
